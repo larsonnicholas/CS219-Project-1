@@ -37,9 +37,6 @@ int main(){
         // Reading in the strings from the .txt file
         fileReader >> tempoperation >> tempop1 >> tempop2;
 
-        // If we've reached the end of file during reading in, escape the while loop
-        if (fileReader.eof()) break;
-
         // Store the hex strings we've obtained into vectors for use later when printing to the terminal
         stringoperand1.push_back(tempop1);
         stringoperand2.push_back(tempop2);
@@ -55,6 +52,9 @@ int main(){
         operation.push_back(tempoperation);
         operand1.push_back(tempoperand1);
         operand2.push_back(tempoperand2);
+
+        // If we've reached the end of file during reading in, escape the while loop
+        if (fileReader.eof()) break;
     }
 
     // For loop that will go through the vectors and do the requested operation on it's given operands
@@ -67,6 +67,69 @@ int main(){
             hexoutput << std::hex << total;
             std::string result = hexoutput.str();
             std::cout << stringoperand1.at(i) << " + " << stringoperand2.at(i) << " = 0x" << result << std::endl;
+
+        }
+        if (operation.at(i) == "AND"){
+            uint32_t total = operand1.at(i) & operand2.at(i);
+            std::ostringstream hexoutput;
+            hexoutput << std::hex << total;
+            std::string result = hexoutput.str();
+            std::cout << stringoperand1.at(i) << " & " << stringoperand2.at(i) << " = 0x" << result << std::endl;
+        }
+        if (operation.at(i) == "ORR"){
+            uint32_t total = operand1.at(i) | operand2.at(i);
+            std::ostringstream hexoutput;
+            hexoutput << std::hex << total;
+            std::string result = hexoutput.str();
+            std::cout << stringoperand1.at(i) << " | " << stringoperand2.at(i) << " = 0x" << result << std::endl;
+
+        }
+        if (operation.at(i) == "SUB"){
+            uint32_t total = operand1.at(i) - operand2.at(i);
+            std::ostringstream hexoutput;
+            hexoutput << std::hex << total;
+            std::string result = hexoutput.str();
+            std::cout << stringoperand1.at(i) << " - " << stringoperand2.at(i) << " = 0x" << result << std::endl;
+        }
+        if (operation.at(i) == "ASR"){
+            uint32_t total = operand1.at(i);
+            for(int i = 0; i < operand2.at(i); i++){
+                total = total * 2;
+                total = total / 2;
+            }
+            std::ostringstream hexoutput;
+            hexoutput << std::hex << total;
+            std::string result = hexoutput.str();
+            std::cout << stringoperand1.at(i) << " shifted right by " << stringoperand2.at(i) << " spaces = 0x" << result << std::endl;
+        }
+        if (operation.at(i) == "LSR"){
+            uint32_t total = operand1.at(i) >> operand2.at(i);
+            std::ostringstream hexoutput;
+            hexoutput << std::hex << total;
+            std::string result = hexoutput.str();
+            std::cout << stringoperand1.at(i) << " shifted right by " << stringoperand2.at(i) << " spaces = 0x" << result << std::endl;
+        }
+        if (operation.at(i) == "LSL"){
+            uint32_t total = operand1.at(i) << operand2.at(i);
+            std::ostringstream hexoutput;
+            hexoutput << std::hex << total;
+            std::string result = hexoutput.str();
+            std::cout << stringoperand1.at(i) << " shifted left by " << stringoperand2.at(i) << " spaces = 0x" << result << std::endl;
+        }
+        if (operation.at(i) == "NOT"){
+            uint32_t total = ~(operand1.at(i));
+            std::ostringstream hexoutput;
+            hexoutput << std::hex << total;
+            std::string result = hexoutput.str();
+            std::cout << "~" << stringoperand1.at(i) << " = 0x" << result << std::endl;
+
+        }
+        if (operation.at(i) == "XOR"){
+            uint32_t total = operand1.at(i) ^ operand2.at(i);
+            std::ostringstream hexoutput;
+            hexoutput << std::hex << total;
+            std::string result = hexoutput.str();
+            std::cout << stringoperand1.at(i) << " ^ " << stringoperand2.at(i) << " = 0x" << result << std::endl;
 
         }
 
